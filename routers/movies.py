@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=MovieSchema)
-async def get_movie() -> MovieSchema:
+def get_movie() -> MovieSchema:
     """Get movie by ID."""
 
     return MovieService().get_movie(0)
