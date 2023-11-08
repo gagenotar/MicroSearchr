@@ -1,8 +1,6 @@
-import json
-
 from utils.openai_client import OpenAIClient, get_openai_client
-from utils.searchr_client import SearchrClient
-from schemas.searchr_response import MicroSearchrResponse
+from utils.searchr_client import SearchrClient, get_searchr_client
+from schemas.micro_searchr import MicroSearchrResponse
 
 
 class MicroSearchrService:
@@ -17,7 +15,7 @@ class MicroSearchrService:
     # @staticmethod
     def search(self, query: str) -> MicroSearchrResponse:
         # Search query using serper api
-        responses = self.searchr_client.returnResponses(query)
+        responses = self.searchr_client.lookup(query)
 
         # send context + query + styling to OpenAIClient
         system_prompt = self._search_prompt.format(query)
@@ -26,19 +24,23 @@ class MicroSearchrService:
             prompt=responses,
             max_tokens=300,
             system_prompt=system_prompt
-        )        
+        )
+
+        response = MicroSearchrResponse()
+        response.message = search_summary.content
 
         # return response
-        print(search_summary)
-        return search_summary
+        print(response)
+        return response
 
 
 def get_micro_searchr_service():
     openai_client: OpenAIClient = get_openai_client()
-    searchr_client: SearchrClient = SearchrClient()
+    searchr_client: SearchrClient = get_searchr_client()
     return MicroSearchrService(openai_client, searchr_client)
+
 
 if __name__ == '__main__':
     searchr_service = get_micro_searchr_service()
-    new_event = searchr_service.search("bannana hammock")
+    new_event = searchr_service.search("banana hammock")
     print(new_event)
