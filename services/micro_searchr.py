@@ -1,3 +1,5 @@
+import json
+
 from utils.openai_client import OpenAIClient, get_openai_client
 from utils.searchr_client import SearchrClient, get_searchr_client
 from schemas.micro_searchr import MicroSearchrResponse
@@ -42,5 +44,5 @@ def get_micro_searchr_service():
 
 if __name__ == '__main__':
     searchr_service = get_micro_searchr_service()
-    new_event = searchr_service.search("banana hammock")
+    new_event = searchr_service.search("hammock")
     print(new_event)
