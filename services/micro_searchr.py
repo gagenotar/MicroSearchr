@@ -44,5 +44,5 @@ def get_micro_searchr_service():
 
 if __name__ == '__main__':
     searchr_service = get_micro_searchr_service()
-    new_event = searchr_service.search("banana hammock")
+    new_event = searchr_service.search("hammock")
     print(new_event)
