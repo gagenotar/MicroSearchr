@@ -14,10 +14,9 @@ class SearchrClient:
     # Not sure if this is even necessary. I have not found the code to access the
     # API key like you did in the openAI client.
     def __init__(self, api_key):
-        os.environ["SERPER_API_KEY"] = api_key
+        self.serper_api_key = api_key
 
-    @staticmethod
-    def lookup(query: str):
+    def lookup(self, query: str):
         try:
             url = "https://google.serper.dev/search"
 
@@ -28,7 +27,7 @@ class SearchrClient:
             # Below is where the API key is supposed to be accessed.
             # I can't figure out how to assign it my .env variable.
             headers = {
-            'X-API-KEY': 'API_KEY_GOES_HERE',
+            'X-API-KEY': self.serper_api_key,
             'Content-Type': 'application/json'
             }
             # make API call to serper.dev
@@ -53,5 +52,5 @@ def get_searchr_client():
 
 if __name__ == "__main__":
     client = get_searchr_client()
-    response = client.lookup("hammock")
-    print(response.organic)
+    response = client.lookup("apple inc.")
+    print(response)

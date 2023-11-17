@@ -7,17 +7,17 @@ from typing import List
 # If you can see an easy solution I am missing, please lmk.
 # Otherwise it isn't essential to the program so it's whatever.
 
-# class KnowledgeGraph(BaseModel):
-#     title: Optional[str]
-#     type: Optional[str]
-#     description: Optional[str]
+class KnowledgeGraph(BaseModel):
+    title: str | None = None
+    type: str | None = None
+    description: str | None = None
 
 class SerperOrganic(BaseModel):
     title: str
     snippet: str
 
 class SerperResponse(BaseModel):
-    # knowledgeGraph: Optional[KnowledgeGraph]
+    knowledgeGraph: KnowledgeGraph | None = None
     organic: List[SerperOrganic] | None = None
 
     class Config:
